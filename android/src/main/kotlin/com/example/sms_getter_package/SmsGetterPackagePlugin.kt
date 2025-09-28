@@ -5,7 +5,6 @@ import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.PluginRegistry.Registrar
 
 /**
  * SMS Getter Package Plugin (Kotlin)
@@ -101,29 +100,4 @@ class SmsGetterPackagePlugin : FlutterPlugin, ActivityAware {
         smsReaderPlugin?.onDetachedFromActivity()
     }
 
-    companion object {
-        /**
-         * Legacy plugin registration for Flutter versions before 1.12
-         * This method provides backward compatibility for older Flutter versions.
-         * 
-         * @param registrar Plugin registrar for legacy registration
-         */
-        @JvmStatic
-        fun registerWith(registrar: Registrar) {
-            // Create method channel for legacy registration
-            val channel = MethodChannel(registrar.messenger(), "sms_getter_package")
-            
-            // Create SMS reader plugin instance
-            val smsReaderPlugin = SmsReaderPlugin()
-            
-            // Set method call handler
-            channel.setMethodCallHandler(smsReaderPlugin)
-            
-            // Register with activity if available
-            if (registrar.activity() != null) {
-                // For legacy registration, we need to handle activity differently
-                // The SmsReaderPlugin will handle permission requests through the activity
-            }
-        }
-    }
 }
